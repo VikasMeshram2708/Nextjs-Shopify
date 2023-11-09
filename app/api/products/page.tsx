@@ -1,9 +1,11 @@
 "use client";
 
+import { useAppDispatch } from "@/app/store/store";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { add } from "@/app/store/cartSlice";
 
-interface IProduct {
+export interface IProduct {
   id: number;
   title: string;
   price: number;
@@ -13,6 +15,8 @@ interface IProduct {
 }
 
 export default function Products() {
+  const dispatch = useAppDispatch();
+  console.log(dispatch);
   const [products, setProducts] = useState<IProduct[]>([]);
 
   useEffect(() => {
@@ -33,7 +37,12 @@ export default function Products() {
     getProducts();
   }, []);
 
-  function getCardData(productData:IProduct) {
+  function handleAdd(product: IProduct) {
+    dispatch(add(product));
+    console.log(product);
+  }
+
+  function getCardData(productData: IProduct) {
     console.log("received-data", productData);
   }
 
@@ -63,6 +72,13 @@ export default function Products() {
             <p className="text-gray-500">{product.category}</p>
             <p className="text-gray-700">${product.price}</p>
             <p className="text-gray-600 mt-2 truncate">{product.description}</p>
+            <button
+              type="button"
+              className="bg-pink-500 font-semibold rounded-full px-4 py-2"
+              onClick={() => handleAdd(product)}
+            >
+              Add To Cart
+            </button>
           </div>
         ))}
       </div>

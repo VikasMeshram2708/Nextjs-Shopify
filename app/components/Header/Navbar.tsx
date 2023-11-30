@@ -1,7 +1,11 @@
-import Link from 'next/link';
-import React from 'react';
+"use client";
+import { RootState, useAppDispatch } from "@/app/store/store";
+import Link from "next/link";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
+  const totalItems = useSelector((state:RootState) => state.cart);
   return (
     <nav className="bg-slate-900 p-4">
       <div className="container mx-auto flex items-center justify-between">
@@ -28,7 +32,7 @@ export default function Navbar() {
               href="/api/products"
               className="text-white hover:text-gray-200 transition duration-300"
             >
-              Products
+              Products : {totalItems.length}
             </Link>
           </li>
         </ul>

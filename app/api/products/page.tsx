@@ -1,9 +1,11 @@
 "use client";
 
-import { useAppDispatch } from "@/app/store/store";
+import { RootState, useAppDispatch } from "@/app/store/store";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { add } from "@/app/store/cartSlice";
+import { useSelector } from "react-redux";
+import { STATUSES, fetchProducts } from "@/app/store/productsSlice";
 
 export interface IProduct {
   id: number;
@@ -16,30 +18,45 @@ export interface IProduct {
 
 export default function Products() {
   const dispatch = useAppDispatch();
+
   console.log(dispatch);
-  const [products, setProducts] = useState<IProduct[]>([]);
+
+  const { data:products, status }: {data: IProduct[], status: string} = useSelector(
+    (state: RootState) => state.product
+  );
+
+  // const [products, setProducts] = useState<IProduct[]>(data);
 
   useEffect(() => {
-    async function getProducts() {
-      try {
-        const response = await fetch("https://fakestoreapi.com/products");
-        if (response.ok) {
-          const data = await response.json();
-          setProducts(data);
-        } else {
-          console.error("Failed to fetch products.");
-        }
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    }
+    dispatch(fetchProducts());
+    // async function getProducts() {
+    //   try {
+    //     const response = await fetch("https://fakestoreapi.com/products");
+    //     if (response.ok) {
+    //       const data = await response.json();
+    //       setProducts(data);
+    //     } else {
+    //       console.error("Failed to fetch products.");
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching products:", error);
+    //   }
+    // }
 
-    getProducts();
+    // getProducts();
   }, []);
 
   function handleAdd(product: IProduct) {
     dispatch(add(product));
     console.log(product);
+  }
+
+  if (status === STATUSES.LOADING) {
+    <h1 className="text-center">Loading...</h1>;
+  }
+
+  if (status === STATUSES.ERROR) {
+    <h1 className="text-center">Something Went Wrong...</h1>;
   }
 
   function getCardData(productData: IProduct) {

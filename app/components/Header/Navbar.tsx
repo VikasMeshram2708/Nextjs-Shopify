@@ -40,7 +40,7 @@ export default function Navbar() {
           </li>
           <li className="">
             <Link
-              href="/api/myproducts"
+              href="/api/cart"
               className="text-white flex items-center gap-2 hover:text-gray-200 transition duration-300"
             >
               <IoCartSharp />

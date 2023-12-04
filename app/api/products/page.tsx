@@ -54,11 +54,11 @@ export default function Products() {
   }
 
   if (status === STATUSES.LOADING) {
-    <h1 className="text-center">Loading...</h1>;
+    return <h1 className="text-center">Loading...</h1>;
   }
 
   if (status === STATUSES.ERROR) {
-    <h1 className="text-center">Something Went Wrong...</h1>;
+    return <h1 className="text-center">Something Went Wrong...</h1>;
   }
 
   // function getCardData(productData: IProduct) {
@@ -72,20 +72,21 @@ export default function Products() {
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {products.map((product) => (
-          <Link
-            href={`/api/products/${product.id}`}
+          <div
             // onClick={() => getCardData(product)}
             key={product.id}
             className="bg-white p-4 b shadow-mdrounded-md transition cursor-pointer duration-300 hover:shadow-lg"
           >
-            <Image
-              width={500}
-              height={500}
-              layout="responsive"
-              src={product.image}
-              alt={product.title}
-              className="w-full h-48 object-cover rounded-md"
-            />
+            <Link href={`/api/products/${product.id}`}>
+              <Image
+                width={500}
+                height={500}
+                layout="responsive"
+                src={product.image}
+                alt={product.title}
+                className="w-full h-48 object-cover rounded-md"
+              />
+            </Link>
             <h2 className="text-lg font-semibold mt-2 truncate">
               {product.title}
             </h2>
@@ -100,7 +101,7 @@ export default function Products() {
               Add To Cart
             </button>
             {/* <ProductDetails title={product.title} /> */}
-          </Link>
+          </div>
         ))}
       </div>
     </div>

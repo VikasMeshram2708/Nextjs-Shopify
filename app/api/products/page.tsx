@@ -7,6 +7,9 @@ import { add } from "@/app/store/cartSlice";
 import { useSelector } from "react-redux";
 import { STATUSES, fetchProducts } from "@/app/store/productsSlice";
 
+// single product page
+import Link from "next/link";
+
 export interface IProduct {
   id: number;
   title: string;
@@ -21,9 +24,8 @@ export default function Products() {
 
   console.log(dispatch);
 
-  const { data:products, status }: {data: IProduct[], status: string} = useSelector(
-    (state: RootState) => state.product
-  );
+  const { data: products, status }: { data: IProduct[]; status: string } =
+    useSelector((state: RootState) => state.product);
 
   // const [products, setProducts] = useState<IProduct[]>(data);
 
@@ -59,9 +61,9 @@ export default function Products() {
     <h1 className="text-center">Something Went Wrong...</h1>;
   }
 
-  function getCardData(productData: IProduct) {
-    console.log("received-data", productData);
-  }
+  // function getCardData(productData: IProduct) {
+  //   console.log("received-data", productData);
+  // }
 
   return (
     <div className="p-4 max-w-[80%] min-h-screen mx-auto">
@@ -70,10 +72,11 @@ export default function Products() {
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {products.map((product) => (
-          <div
-            onClick={() => getCardData(product)}
+          <Link
+            href={`/api/products/${product.id}`}
+            // onClick={() => getCardData(product)}
             key={product.id}
-            className="bg-white p-4 shadow-md rounded-md transition cursor-pointer duration-300 hover:shadow-lg"
+            className="bg-white p-4 b shadow-mdrounded-md transition cursor-pointer duration-300 hover:shadow-lg"
           >
             <Image
               width={500}
@@ -96,7 +99,8 @@ export default function Products() {
             >
               Add To Cart
             </button>
-          </div>
+            {/* <ProductDetails title={product.title} /> */}
+          </Link>
         ))}
       </div>
     </div>

@@ -1,7 +1,12 @@
+import HomeCarousel from "./components/Home/Carousels/HomeCarousel";
+import Latest from "./components/Home/Latest/Latest";
+import Products from "./pages/products/page";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>Hello,World!</h1>
+    <main>
+      <HomeCarousel />
+      <Products />
     </main>
   );
 }

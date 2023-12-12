@@ -1,41 +1,66 @@
-import React from "react";
+"use client";
 
-const Card = () => {
-  return (
-    <div className="card w-96 bg-base-100 shadow-xl">
-      <figure>
-        <img
-          src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-          alt="Shoes"
-        />
-      </figure>
-      <div className="card-body">
-        <h2 className="card-title">
-          Shoes!
-          <div className="badge badge-secondary">NEW</div>
-        </h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
-        <div className="card-actions justify-end">
-          <div className="badge badge-outline">Fashion</div>
-          <div className="badge badge-outline">Products</div>
-        </div>
-      </div>
-    </div>
-  );
-};
+import React, { useEffect, useState } from "react";
+import { Iproducts } from "../../interfaces/interfaces";
+import Loader from "../../Loader/Loader";
+import Link from "next/link";
+
 const Latest = () => {
+  const [products, setProducts] = useState<Iproducts[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await fetch("https://fakestoreapi.com/products");
+      const result = await response.json();
+      setProducts(result);
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
-    <section className="mt-5">
-      <h1 className="text-center text-xl md:text-3xl mb-2 md:mb-5">Popular Nearby Searches</h1>
-      <div className="container mx-auto grid grid-cols-3 ">
-        {Array.from({ length: 5 }).map((item, i) => {
-          return (
-            <div key={i}>
-              <Card />
+    <section className="m-5">
+      <h1 className="text-center text-xl md:text-3xl mb-2 md:mb-5">
+        Popular Nearby Searches
+      </h1>
+      {products?.length <= 0 ? (
+        <Loader />
+      ) : (
+        <div className="container mx-auto grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {products?.map((product) => (
+            <div
+              key={product.id}
+              className="card bg-[#1d232a] shadow-white rounded-lg shadow-md"
+            >
+              <figure>
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  className="w-full h-48 object-cover rounded-t-lg"
+                />
+              </figure>
+              <div className="card-body p-4">
+                <Link
+                  href={{
+                    pathname: `/pages/products/${product.id}`,
+                  }}
+                >
+                  <h2 className="card-title text-lg font-semibold mb-2">
+                    {product.title}
+                  </h2>
+                </Link>
+                <p className="text-gray-600 truncate">{product.description}</p>
+                <div className="flex justify-between mt-4">
+                  <button className="btn btn-outline btn-warning">
+                    {product.price}
+                  </button>
+                  <div className="badge badge-outline">{product.category}</div>
+                </div>
+              </div>
             </div>
-          );
-        })}
-      </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 };

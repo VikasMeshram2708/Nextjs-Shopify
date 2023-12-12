@@ -1,12 +1,14 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+
 
 const Navbar = () => {
   return (
     <>
       <div className="navbar bg-neutral text-neutral-content">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl">BharatBuzzFeed</a>
+          <Link href="/" className="btn btn-ghost text-xl">Shopify</Link>
         </div>
         <div className="flex-none gap-2">
           <div className="form-control">
@@ -40,6 +42,9 @@ const Navbar = () => {
                   Profile
                   <span className="badge">New</span>
                 </a>
+              </li>
+              <li>
+                <a>My Cart</a>
               </li>
               <li>
                 <a>Settings</a>

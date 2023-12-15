@@ -16,7 +16,7 @@ export default function Navbar() {
         <ul className="flex space-x-4">
           <li>
             <Link
-              href="/api/signup"
+              href="/pages/signup"
               className="text-white hover:text-gray-200 transition duration-300"
             >
               Sign Up
@@ -24,7 +24,7 @@ export default function Navbar() {
           </li>
           <li>
             <Link
-              href="/api/login"
+              href="/pages/login"
               className="text-white hover:text-gray-200 transition duration-300"
             >
               Login

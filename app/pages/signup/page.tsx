@@ -1,4 +1,5 @@
-"use client"
+"use client";
+import axios from "axios";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 
 const Page = () => {
@@ -16,19 +17,33 @@ const Page = () => {
     });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // You can handle form submission here, e.g., send the data to a server.
-    console.log(formData);
+
+    try {
+      const response = await axios?.post("/api/signup", formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const result = response?.data;
+      console.log(result);
+    } catch (error) {
+      const errorMessge = error as Error;
+      console.log(errorMessge?.message);
+    }
   };
 
   return (
     <div className="max-w-md mx-auto p-6 shadow-white shadow-lg bg-white rounded-md mt-24">
-      <h2 className="text-2xl font-bold text-center mb-4 text-black">Sign Up</h2>
+      <h2 className="text-2xl font-bold text-center mb-4 text-black">
+        Sign Up
+      </h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">
-            Full Name
+            Name
           </label>
           <input
             type="text"

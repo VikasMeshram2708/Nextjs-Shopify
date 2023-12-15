@@ -1,6 +1,7 @@
 "use client";
 // Import the necessary modules
 import axios from "axios";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 // Define the SingleProduct component
@@ -44,7 +45,7 @@ const SingleProduct = ({ params }: { params: { id: number } }) => {
             <h1 className="text-2xl font-bold mb-2">{product.title}</h1>
             <p className="text-lg text-gray-700 mb-2">Price: ${product.price}</p>
             <p className="text-lg text-gray-700 mb-2">Category: {product.category}</p>
-            <img src={product.image} alt={product.title} className="w-full mb-4" />
+            <Image width={500} height={500} src={product.image} alt={product.title} className="w-full mb-4" />
             <p className="text-lg text-gray-700">{product.description}</p>
           </>
         )}

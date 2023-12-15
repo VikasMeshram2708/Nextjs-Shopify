@@ -75,7 +75,7 @@ export default function Products() {
           <div
             // onClick={() => getCardData(product)}
             key={product.id}
-            className="bg-white p-4 b shadow-mdrounded-md transition cursor-pointer duration-300 hover:shadow-lg"
+            className="bg-white p-4 shadow-mdrounded-md transition cursor-pointer duration-300 hover:shadow-lg"
           >
             <Link href={`/api/products/${product.id}`}>
               <Image

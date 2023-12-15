@@ -4,7 +4,7 @@ import { remove } from "@/app/store/cartSlice";
 import { RootState } from "@/app/store/store";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const page = () => {
@@ -21,7 +21,7 @@ const page = () => {
     <section className="container mx-auto my-8">
       <h1 className="text-3xl font-bold mb-4 text-center">
         {products.length < 1 ? (
-          <Link href="/api/products">Your haven't Selected a Product</Link>
+          <Link href="/api/products">No Products were added</Link>
         ) : (
           "Shopping Cart"
         )}

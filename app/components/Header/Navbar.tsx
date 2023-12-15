@@ -32,7 +32,7 @@ export default function Navbar() {
           </li>
           <li>
             <Link
-              href="/api/products"
+              href="/pages/products"
               className="text-white hover:text-gray-200 transition duration-300"
             >
               Products
@@ -40,7 +40,7 @@ export default function Navbar() {
           </li>
           <li className="">
             <Link
-              href="/api/cart"
+              href="/pages/cart"
               className="text-white flex items-center gap-2 hover:text-gray-200 transition duration-300"
             >
               <IoCartSharp />

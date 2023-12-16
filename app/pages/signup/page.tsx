@@ -1,6 +1,7 @@
 "use client";
 import axios from "axios";
 import React, { ChangeEvent, FormEvent, useState } from "react";
+import Swal from 'sweetalert2'
 
 const Page = () => {
   const [formData, setFormData] = useState({
@@ -28,7 +29,9 @@ const Page = () => {
       });
 
       const result = response?.data;
-      console.log(result);
+
+      
+      // console.log(result);
     } catch (error) {
       const errorMessge = error as Error;
       console.log(errorMessge?.message);

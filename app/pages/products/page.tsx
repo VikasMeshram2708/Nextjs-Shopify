@@ -27,25 +27,8 @@ export default function Products() {
   const { data: products, status }: { data: IProduct[]; status: string } =
     useSelector((state: RootState) => state.product);
 
-  // const [products, setProducts] = useState<IProduct[]>(data);
-
   useEffect(() => {
     dispatch(fetchProducts());
-    // async function getProducts() {
-    //   try {
-    //     const response = await fetch("https://fakestoreapi.com/products");
-    //     if (response.ok) {
-    //       const data = await response.json();
-    //       setProducts(data);
-    //     } else {
-    //       console.error("Failed to fetch products.");
-    //     }
-    //   } catch (error) {
-    //     console.error("Error fetching products:", error);
-    //   }
-    // }
-
-    // getProducts();
   }, []);
 
   function handleAdd(product: IProduct) {
@@ -60,10 +43,6 @@ export default function Products() {
   if (status === STATUSES.ERROR) {
     return <h1 className="text-center">Something Went Wrong...</h1>;
   }
-
-  // function getCardData(productData: IProduct) {
-  //   console.log("received-data", productData);
-  // }
 
   return (
     <div className="p-4 max-w-[80%] min-h-screen mx-auto">
@@ -100,7 +79,6 @@ export default function Products() {
             >
               Add To Cart
             </button>
-            {/* <ProductDetails title={product.title} /> */}
           </div>
         ))}
       </div>

@@ -1,12 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import { UserSchema } from "../models/User";
 import { db } from "../db/rotue";
 const User = db.collection("users");
 import bcryptjs from "bcryptjs";
+import { UserSchema } from "../models/User";
 
 export async function POST(request: NextRequest) {
   try {
     const requestBody = await request.json();
+
+    // Validate the request body against the schema
+    await UserSchema.validateAsync(requestBody, { abortEarly: false });
 
     console.log(requestBody);
 
@@ -14,7 +17,7 @@ export async function POST(request: NextRequest) {
     const { name, email, password } = requestBody;
 
     // Check if the email is alreay in use
-    const emailExists = await User?.findOne({ email });
+    const emailExists = await User.findOne({ email });
 
     // if email is already in use, the throw an error...
     if (emailExists) {
@@ -32,7 +35,7 @@ export async function POST(request: NextRequest) {
     const salt = await bcryptjs?.genSalt(10);
     const hashedPassword = await bcryptjs?.hash(password, salt);
 
-    const newUser = User?.insertOne({
+    const newUser = await User?.insertOne({
       name,
       email,
       password: hashedPassword,
@@ -49,6 +52,7 @@ export async function POST(request: NextRequest) {
     );
   } catch (err) {
     const errMsg = err as Error;
+    console.log(errMsg?.message);
     return NextResponse.json({
       message: errMsg?.message as string,
     });

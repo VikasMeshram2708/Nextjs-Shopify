@@ -54,8 +54,13 @@ export async function POST(request: NextRequest) {
   } catch (err) {
     const errMsg = err as Error;
     console.log(errMsg?.message);
-    return NextResponse.json({
-      message: errMsg?.message as string,
-    });
+    return NextResponse.json(
+      {
+        message: errMsg?.message as string,
+      },
+      {
+        status: 500,
+      }
+    );
   }
 }

@@ -50,7 +50,7 @@ export default function Products() {
         {products.length > 1 ? "Product List" : "No Producsts to Show"}
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {products.map((product) => (
+        {products?.map((product) => (
           <div
             // onClick={() => getCardData(product)}
             key={product.id}

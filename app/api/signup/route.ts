@@ -39,6 +39,7 @@ export async function POST(request: NextRequest) {
       name,
       email,
       password: hashedPassword,
+      created_at: new Date().toLocaleDateString(),
     });
 
     return NextResponse.json(

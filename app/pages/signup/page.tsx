@@ -26,6 +26,39 @@ const Page = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (formData?.name?.length < 1) {
+      return Swal.fire({
+        title: "error",
+        text: "Name must be at least 2 characters",
+        icon: "error",
+      });
+    }
+    if (!formData?.email) {
+      return Swal.fire({
+        title: "error",
+        text: "Email is required",
+        icon: "error",
+      });
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(formData.email)) {
+      return Swal.fire({
+        title: "error",
+        text: "Invalid email format",
+        icon: "error",
+      });
+    }
+
+    if (formData?.password?.length < 5) {
+      return Swal.fire({
+        title: "error",
+        text: "Passwords must be at least 5 characters",
+        icon: "error",
+      });
+    }
+
     const response = await fetch("/api/signup", {
       method: "POST",
       headers: {

@@ -3,6 +3,8 @@ import { db } from "../db/rotue";
 const User = db.collection("users");
 import bcryptjs from "bcryptjs";
 
+import jwt from "jsonwebtoken";
+
 export async function POST(request: NextRequest) {
   try {
     const requestBody = await request.json();
@@ -50,9 +52,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({
+    // JWT Configuration Section
+    console.log(registeredUser); // contains the user object
+
+    const token = jwt.sign(registeredUser, process.env.NEXT_PUBLIC_JWT_TOKEN!, {
+      expiresIn: "1h",
+    });
+
+    const response = NextResponse.json({
       message: "User Logged in successfully...",
     });
+
+    // setting the cookies
+
+    response.cookies.set("token", token);
+
+    return response;
   } catch (err) {
     const errMsg = err as Error;
     console.log(errMsg?.message);

@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
           message: "Email already in use...",
         },
         {
-          status: 500,
+          status: 400,
         }
       );
     }

@@ -21,21 +21,42 @@ const Page = () => {
     });
   };
 
+  // /api/signup
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    try {
-      const response = await axios?.post("/api/signup", formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+    const response = await fetch("/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
 
-      const result = response?.data;
-      // console.log(result);
-    } catch (error) {
-      const errorMessge = error as Error;
-      console.log(errorMessge?.message);
+    if (response?.ok) {
+      const result = await response?.json();
+      console.log("rest", result);
+      const { message } = result;
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: message,
+      });
+      return setFormData({
+        name: "",
+        email: "",
+        password: "",
+      });
+    } else {
+      const errorMessage = await response.json();
+      console.log("err", errorMessage);
+      const { message } = errorMessage;
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: message,
+      });
     }
   };
 

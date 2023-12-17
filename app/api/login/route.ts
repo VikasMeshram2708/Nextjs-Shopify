@@ -23,9 +23,14 @@ export async function POST(request: NextRequest) {
 
     const registeredUser = await User.findOne({ email });
     if (!registeredUser) {
-      return NextResponse.json({
-        message: "Email not found...",
-      });
+      return NextResponse.json(
+        {
+          message: "Email not found...",
+        },
+        {
+          status: 500,
+        }
+      );
     }
 
     // compare the password
@@ -35,9 +40,14 @@ export async function POST(request: NextRequest) {
     );
 
     if (!isValidPassword) {
-      return NextResponse.json({
-        message: "Invalid Credentials Provided...",
-      });
+      return NextResponse.json(
+        {
+          message: "Invalid Credentials Provided...",
+        },
+        {
+          status: 500,
+        }
+      );
     }
 
     return NextResponse.json({

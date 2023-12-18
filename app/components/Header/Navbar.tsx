@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 
 export default function Navbar() {
   const router = useRouter();
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  // const [userLoggedIn, setUserLoggedIn] = useState(false);
 
   const handleLogout = async () => {
     const response = await fetch("/api/logout");
@@ -43,36 +43,33 @@ export default function Navbar() {
           <Link href="/">Shopify</Link>
         </h1>
         <ul className="flex space-x-4">
-          {!userLoggedIn ? (
+          <li>
+            <button
+              onClick={handleLogout}
+              type="button"
+              className="text-white font-semibold bg-pink-500 rounded-md px-4 py-2"
+            >
+              Logout
+            </button>
+          </li>
+          <>
             <li>
-              <button
-                onClick={handleLogout}
-                type="button"
-                className="text-white font-semibold bg-pink-500 rounded-md px-4 py-2"
+              <Link
+                href="/pages/signup"
+                className="text-white hover:text-gray-200 transition duration-300"
               >
-                Logout
-              </button>
+                Sign Up
+              </Link>
             </li>
-          ) : (
-            <>
-              <li>
-                <Link
-                  href="/pages/signup"
-                  className="text-white hover:text-gray-200 transition duration-300"
-                >
-                  Sign Up
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/login"
-                  className="text-white hover:text-gray-200 transition duration-300"
-                >
-                  Login
-                </Link>
-              </li>
-            </>
-          )}
+            <li>
+              <Link
+                href="/pages/login"
+                className="text-white hover:text-gray-200 transition duration-300"
+              >
+                Login
+              </Link>
+            </li>
+          </>
 
           <li>
             <Link

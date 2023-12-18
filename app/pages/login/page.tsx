@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { FaEyeSlash } from "react-icons/fa6";
 import { IoEyeSharp } from "react-icons/io5";
@@ -6,6 +7,8 @@ import Swal from "sweetalert2";
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
+
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -64,11 +67,16 @@ const Page = () => {
         icon: "success",
         title: "Success",
         text: message,
-      });
-      return setFormData({
-        email: "",
-        password: "",
-      });
+      })
+        .then(() => {
+          setFormData({
+            email: "",
+            password: "",
+          });
+        })
+        .then(() => {
+          router.push("/pages/products");
+        });
     } else {
       const errorMessage = await response.json();
       console.log("err", errorMessage);

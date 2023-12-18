@@ -21,7 +21,7 @@ const page = () => {
     <section className="container mx-auto my-8">
       <h1 className="text-3xl font-bold mb-4 text-center">
         {products.length < 1 ? (
-          <Link href="/api/products">No Products were added</Link>
+          <Link href="/pages/products">No Products were added</Link>
         ) : (
           "Shopping Cart"
         )}
@@ -32,16 +32,14 @@ const page = () => {
             key={product.id}
             className="bg-white p-4 shadow-md rounded-md transition cursor-pointer duration-300 hover:shadow-lg"
           >
-            <Link href={`/api/products/${product.id}`}>
-              <Image
-                width={500}
-                height={500}
-                layout="responsive"
-                src={product.image}
-                alt={product.title}
-                className="w-full h-48 object-cover rounded-md"
-              />
-            </Link>
+            <Image
+              width={500}
+              height={500}
+              layout="responsive"
+              src={product.image}
+              alt={product.title}
+              className="w-full h-48 object-cover rounded-md"
+            />
             <h2 className="text-lg font-semibold mt-2 truncate">
               {product.title}
             </h2>

@@ -22,7 +22,7 @@ export interface IProduct {
 export default function Products() {
   const dispatch = useAppDispatch();
 
-  console.log(dispatch);
+  // console.log(dispatch);
 
   const { data: products, status }: { data: IProduct[]; status: string } =
     useSelector((state: RootState) => state.product);
@@ -52,11 +52,9 @@ export default function Products() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {products?.map((product) => (
           <div
-            // onClick={() => getCardData(product)}
             key={product.id}
             className="bg-white p-4 shadow-mdrounded-md transition cursor-pointer duration-300 hover:shadow-lg"
           >
-            <Link href={`/api/products/${product.id}`}>
               <Image
                 width={500}
                 height={500}
@@ -65,7 +63,6 @@ export default function Products() {
                 alt={product.title}
                 className="w-full h-48 object-cover rounded-md"
               />
-            </Link>
             <h2 className="text-lg font-semibold mt-2 truncate">
               {product.title}
             </h2>

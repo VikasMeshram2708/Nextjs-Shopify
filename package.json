@@ -11,9 +11,11 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
     "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.5",
     "axios": "^1.6.2",
     "bcryptjs": "^2.4.3",
     "joi": "^17.11.0",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "next": "14.0.1",
     "next-auth": "^4.24.5",

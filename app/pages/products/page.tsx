@@ -2,7 +2,7 @@
 
 import { RootState, useAppDispatch } from "@/app/store/store";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { add } from "@/app/store/cartSlice";
 import { useSelector } from "react-redux";
 import { STATUSES, fetchProducts } from "@/app/store/productsSlice";
@@ -21,8 +21,6 @@ export interface IProduct {
 
 export default function Products() {
   const dispatch = useAppDispatch();
-
-  // console.log(dispatch);
 
   const { data: products, status }: { data: IProduct[]; status: string } =
     useSelector((state: RootState) => state.product);
@@ -55,6 +53,7 @@ export default function Products() {
             key={product.id}
             className="bg-white p-4 shadow-mdrounded-md transition cursor-pointer duration-300 hover:shadow-lg"
           >
+            <Link href={`/pages/products/${product?.id}`}>
               <Image
                 width={500}
                 height={500}
@@ -63,6 +62,8 @@ export default function Products() {
                 alt={product.title}
                 className="w-full h-48 object-cover rounded-md"
               />
+            </Link>
+
             <h2 className="text-lg font-semibold mt-2 truncate">
               {product.title}
             </h2>

@@ -27,7 +27,7 @@ export default function Products() {
 
   useEffect(() => {
     dispatch(fetchProducts());
-  }, []);
+  }, [dispatch]);
 
   function handleAdd(product: IProduct) {
     dispatch(add(product));

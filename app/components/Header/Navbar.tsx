@@ -24,7 +24,7 @@ export default function Navbar() {
         text: message,
       })
         .then((res) => res.isConfirmed)
-        .then(() => router.push("/"));
+        .then(() => router.push("/pages/login"));
     } else {
       const result = await response.json();
       const { message } = result;

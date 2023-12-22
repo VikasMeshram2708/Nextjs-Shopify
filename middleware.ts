@@ -6,6 +6,8 @@ export function middleware(request: NextRequest) {
   console.log("middleware working");
   const path = request.nextUrl.pathname;
 
+  console.log("path", path);
+
   const isPublicPath = path === "/pages/login" || path === "/pages/signup";
 
   const token = request.cookies.get("token")?.value || "";
@@ -21,5 +23,5 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: "/pages/products",
+  matcher: ["/pages/products", "/pages/signup", "/pages/login"],
 };

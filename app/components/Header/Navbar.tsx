@@ -3,7 +3,8 @@ import { RootState, useAppDispatch } from "@/app/store/store";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { NextRequest } from "next/server";
+import React, { useEffect, useState } from "react";
 import { IoCartSharp } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
@@ -35,6 +36,11 @@ export default function Navbar() {
       });
     }
   };
+
+  useEffect(() => {
+    const tokenExist = document.cookie;
+    console.log(tokenExist);
+  }, []);
   const totalItems = useSelector((state: RootState) => state.cart);
   return (
     <nav className="bg-slate-900 p-4">
@@ -42,7 +48,7 @@ export default function Navbar() {
         <h1 className="text-2xl font-bold text-white">
           <Link href="/">Shopify</Link>
         </h1>
-        <ul className="flex space-x-4">
+        <ul className="flex space-x-4 hidden">
           <li>
             <button
               onClick={handleLogout}
